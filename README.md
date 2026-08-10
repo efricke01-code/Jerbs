@@ -54,3 +54,18 @@ npm run dev      # start the dev server
 npm run build    # type-check and build for production
 npm run lint      # run oxlint
 ```
+
+## Deploying (Render)
+
+This is a static site (no backend), so it deploys as a Render **Static Site**:
+
+1. On [render.com](https://render.com), **New +** → **Blueprint**, and point it at this
+   repo — it picks up `render.yaml` automatically. (Or **New +** → **Static Site**
+   manually: build command `npm install && npm run build`, publish directory `dist`.)
+2. Deploy. Render gives you a URL like `https://jerbs.onrender.com`.
+
+That URL is public by default — anyone with the link can open the app. That's lower-risk
+than it sounds since there's no backend or shared database: each visitor's browser has
+its own separate `localStorage`, so nobody else can see your applications, resume, or
+API key just by visiting the same URL. But if you'd rather it not be guessable/public at
+all, keep it to `npm run dev` locally instead, or ask about adding access restriction.
