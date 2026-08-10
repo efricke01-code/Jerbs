@@ -13,15 +13,10 @@ function q(value: string): string {
 const combinedKeywords = (profile: SavedSearchProfile): string =>
   profile.remote ? `${profile.keywords} remote`.trim() : profile.keywords;
 
+// LinkedIn is deliberately excluded — not a board, not a fallback. Never add it back
+// without checking with the user first: they don't have a LinkedIn account for
+// personal safety reasons and don't want it appearing anywhere in this app.
 export const JOB_BOARDS: JobBoardDef[] = [
-  {
-    id: "linkedin",
-    name: "LinkedIn",
-    buildUrl: (p) =>
-      `https://www.linkedin.com/jobs/search/?keywords=${q(p.keywords)}&location=${q(p.location)}${
-        p.remote ? "&f_WT=2" : ""
-      }`,
-  },
   {
     id: "indeed",
     name: "Indeed",
@@ -80,6 +75,12 @@ export const JOB_BOARDS: JobBoardDef[] = [
     id: "builtin",
     name: "Built In",
     buildUrl: (p) => `https://builtin.com/jobs?search=${q(p.keywords)}`,
+  },
+  {
+    id: "simplyhired",
+    name: "SimplyHired",
+    buildUrl: (p) =>
+      `https://www.simplyhired.com/search?q=${q(p.keywords)}&l=${q(p.remote ? "Remote" : p.location)}`,
   },
 ];
 

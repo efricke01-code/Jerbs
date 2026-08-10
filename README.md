@@ -18,9 +18,10 @@ generate a tailored resume and cover letter from a pasted job description in one
   employers, titles, or accomplishments that aren't in your base resume. Results are
   copyable and downloadable as `.txt`.
 - **Job Boards** — save a search profile (keywords, location, remote) once and get
-  one-click, pre-filled search links across LinkedIn, Indeed, Glassdoor, ZipRecruiter,
-  Google Jobs, Monster, Wellfound, Dice, RemoteOK, We Work Remotely, and Built In —
-  so you don't have to re-type the same search on every site.
+  one-click, pre-filled search links across Indeed, Glassdoor, ZipRecruiter, Google
+  Jobs, Monster, Wellfound, Dice, RemoteOK, We Work Remotely, Built In, and
+  SimplyHired — so you don't have to re-type the same search on every site.
+  LinkedIn is intentionally excluded and never appears in this app.
 - **Dashboard** — at-a-glance counts by status, upcoming next-step dates, and how
   many applications have a tailored resume/cover letter ready.
 

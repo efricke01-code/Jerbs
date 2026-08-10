@@ -41,6 +41,12 @@ export function JobBoardsPage() {
           search link for each one, so opening ten tabs is one click instead of ten searches. Your browser may block
           pop-ups when opening many tabs at once; allow pop-ups for this site if so.
         </p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+          LinkedIn is intentionally left off this list — it's never included as a board here, and search results won't
+          send you there. One caveat worth knowing: aggregators like Google Jobs pull listings from across the web and
+          may occasionally surface a posting that itself links back to LinkedIn's own apply page; that's the source
+          job's choice, not something this app can filter out of an aggregator's results.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <div>
             <Label>Profile name (optional)</Label>
