@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useApplicationsStore } from "../store/applicationsStore";
 import { useResumeStore } from "../store/resumeStore";
 import { useSettingsStore } from "../store/settingsStore";
-import { ClaudeApiError, tailorApplication } from "../lib/anthropic";
+import { GeminiApiError, tailorApplication } from "../lib/gemini";
 import { isResumeUsable } from "../lib/formatResume";
 import { APPLICATION_STATUSES, type ApplicationStatus, type JobApplication } from "../types";
 import { Badge, Button, Input, Label, Modal, Select, Spinner, TextArea } from "./ui";
@@ -82,7 +82,7 @@ export function ApplicationDetailModal({
         tailorError: "",
       });
     } catch (err) {
-      const message = err instanceof ClaudeApiError ? err.message : "Something went wrong generating your materials.";
+      const message = err instanceof GeminiApiError ? err.message : "Something went wrong generating your materials.";
       updateApplication(app.id, { tailorError: message });
     } finally {
       setTailoring(false);
@@ -171,7 +171,7 @@ export function ApplicationDetailModal({
 
           {!apiKey && (
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Add your Anthropic API key in{" "}
+              Add your free Gemini API key in{" "}
               <Link to="/settings" className="text-indigo-600 dark:text-indigo-400 underline" onClick={onClose}>
                 Settings
               </Link>{" "}
@@ -193,7 +193,7 @@ export function ApplicationDetailModal({
             <>
               <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">
                 Generates a tailored resume and cover letter from your base resume and this job description, using
-                Claude ({model}). Nothing is invented — only your real background is reworded and reordered to fit.
+                Gemini ({model}). Nothing is invented — only your real background is reworded and reordered to fit.
               </p>
               <Button onClick={handleTailor} disabled={tailoring || !app.jobDescription.trim()}>
                 {tailoring ? (

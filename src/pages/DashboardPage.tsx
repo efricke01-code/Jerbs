@@ -40,7 +40,7 @@ export function DashboardPage() {
       {!apiKey && (
         <Card className="p-4 border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/30">
           <p className="text-sm text-slate-700 dark:text-slate-200">
-            Add your Anthropic API key in{" "}
+            Add your free Gemini API key in{" "}
             <Link to="/settings" className="text-indigo-600 dark:text-indigo-400 underline">
               Settings
             </Link>{" "}

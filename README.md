@@ -1,7 +1,8 @@
 # Jerbs — Job Application Tracker
 
-A personal app for running a job search: track every application in one place, and
-generate a tailored resume and cover letter from a pasted job description in one click.
+A personal app for running a job search: track every application in one place, upload
+your resume once, and generate a tailored resume and cover letter from a pasted job
+description in one click — all for free.
 
 ## Features
 
@@ -12,8 +13,10 @@ generate a tailored resume and cover letter from a pasted job description in one
 - **Resume & Cover Letter** — maintain one base resume (contact info, summary,
   skills, experience, projects, education) and cover-letter guidance (tone, recurring
   talking points, closing style). This is the single source of truth for tailoring.
+  Upload an existing resume (PDF, DOCX, or plain text) and Gemini reads it into these
+  fields for you, instead of retyping everything by hand.
 - **AI tailoring** — on any application, paste the job description and click
-  "Tailor with AI." Claude reorders and rewords your *real* base resume and writes a
+  "Tailor with AI." Gemini reorders and rewords your *real* base resume and writes a
   cover letter specific to that company and role — it's instructed never to invent
   employers, titles, or accomplishments that aren't in your base resume. Results are
   copyable and downloadable as `.txt`.
@@ -25,12 +28,22 @@ generate a tailored resume and cover letter from a pasted job description in one
 - **Dashboard** — at-a-glance counts by status, upcoming next-step dates, and how
   many applications have a tailored resume/cover letter ready.
 
-## AI tailoring setup
+## AI setup — free, no payment required
 
-Tailoring calls the Claude API directly from your browser using your own Anthropic
-API key — there is no backend. Add a key in **Settings** (get one at
-[console.anthropic.com](https://console.anthropic.com/settings/keys)). The key is
-stored only in this browser's `localStorage` and is sent only to Anthropic's API;
+Tailoring and resume upload both call Google's **Gemini API** directly from your
+browser using your own free API key — there is no backend, and no payment or billing
+account of any kind is needed.
+
+1. Go to [aistudio.google.com/apikey](https://aistudio.google.com/apikey) and sign in
+   with a Google account.
+2. Click **Create API key**. No credit card, no billing setup.
+3. Paste the key into this app's **Settings** page.
+
+The free tier is rate-limited (requests per minute/day), not paid-only-above-a-cap —
+for personal job-search use you're unlikely to hit it. If you ever do, wait a bit and
+retry, or switch to the lighter "Gemini 2.5 Flash Lite" model in Settings.
+
+The key is stored only in this browser's `localStorage` and sent only to Google's API;
 don't use this on a shared computer, since anyone with access to the browser profile
 could read it from local storage.
 
@@ -38,13 +51,14 @@ could read it from local storage.
 
 All data (applications, resume, saved searches, and your API key) is stored locally
 in the browser via `localStorage` — no account, no backend, nothing leaves your
-machine except the specific tailoring request sent directly to Anthropic when you
-click "Tailor with AI."
+machine except the specific request sent directly to Google's Gemini API when you
+click "Tailor with AI" or upload a resume.
 
 ## Tech stack
 
 React + TypeScript + Vite, Tailwind CSS v4, Zustand (with localStorage persistence),
-React Router.
+React Router. Resume file parsing runs entirely client-side via `pdfjs-dist` (PDF) and
+`mammoth` (DOCX).
 
 ## Development
 

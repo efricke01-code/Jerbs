@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ResumeUploadModal } from "../components/ResumeUploadModal";
 import { Button, Card, Input, Label, SectionHeader, TextArea } from "../components/ui";
 import { useResumeStore } from "../store/resumeStore";
 import type { ResumeEducation, ResumeExperience, ResumeProject } from "../types";
@@ -193,13 +194,23 @@ export function ResumePage() {
     setCoverLetterField,
   } = useResumeStore();
   const [skillsInput, setSkillsInput] = useState(resume.skills.join(", "));
+  const [uploadOpen, setUploadOpen] = useState(false);
+
+  useEffect(() => {
+    setSkillsInput(resume.skills.join(", "));
+  }, [resume.skills]);
 
   return (
     <div className="space-y-8">
       <div>
         <SectionHeader
           title="Base resume"
-          subtitle="This is the source of truth. When you tailor an application, Claude reorders and rewords this — it never invents anything beyond it."
+          subtitle="This is the source of truth. When you tailor an application, Gemini reorders and rewords this — it never invents anything beyond it."
+          action={
+            <Button variant="secondary" onClick={() => setUploadOpen(true)}>
+              ⬆ Upload resume
+            </Button>
+          }
         />
         <Card className="p-4 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -327,7 +338,7 @@ export function ResumePage() {
       <div>
         <SectionHeader
           title="Cover letter guidance"
-          subtitle="Not a fixed template — this steers the tone and content Claude uses when it writes a cover letter for each application."
+          subtitle="Not a fixed template — this steers the tone and content Gemini uses when it writes a cover letter for each application."
         />
         <Card className="p-4 space-y-4">
           <div>
@@ -357,6 +368,8 @@ export function ResumePage() {
           </div>
         </Card>
       </div>
+
+      <ResumeUploadModal open={uploadOpen} onClose={() => setUploadOpen(false)} />
     </div>
   );
 }

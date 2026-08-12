@@ -77,21 +77,33 @@ export interface BaseResume {
   projects: ResumeProject[];
 }
 
+// Same shape as BaseResume but without generated `id` fields — this is what the AI
+// returns when parsing an uploaded resume file. IDs get assigned locally afterward.
+export interface ParsedResume {
+  fullName: string;
+  email: string;
+  phone: string;
+  location: string;
+  linkedin: string;
+  website: string;
+  summary: string;
+  skills: string[];
+  experience: Omit<ResumeExperience, "id">[];
+  education: Omit<ResumeEducation, "id">[];
+  projects: Omit<ResumeProject, "id">[];
+}
+
 export interface CoverLetterBase {
   tone: string;
   talkingPoints: string;
   closing: string;
 }
 
-export type ClaudeModel =
-  | "claude-opus-5"
-  | "claude-sonnet-5"
-  | "claude-haiku-4-5"
-  | "claude-fable-5";
+export type GeminiModel = "gemini-2.5-flash" | "gemini-2.5-flash-lite" | "gemini-2.0-flash";
 
 export interface Settings {
   apiKey: string;
-  model: ClaudeModel;
+  model: GeminiModel;
 }
 
 export interface SavedSearchProfile {

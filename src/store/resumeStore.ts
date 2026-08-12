@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import type {
   BaseResume,
   CoverLetterBase,
+  ParsedResume,
   ResumeEducation,
   ResumeExperience,
   ResumeProject,
@@ -14,6 +15,7 @@ interface ResumeState {
   coverLetter: CoverLetterBase;
   setResumeField: <K extends keyof BaseResume>(field: K, value: BaseResume[K]) => void;
   setSkills: (skills: string[]) => void;
+  applyParsedResume: (parsed: ParsedResume) => void;
   addExperience: () => void;
   updateExperience: (id: string, updates: Partial<ResumeExperience>) => void;
   removeExperience: (id: string) => void;
@@ -58,6 +60,22 @@ export const useResumeStore = create<ResumeState>()(
         set((state) => ({ resume: { ...state.resume, [field]: value } })),
       setSkills: (skills) =>
         set((state) => ({ resume: { ...state.resume, skills } })),
+      applyParsedResume: (parsed) =>
+        set(() => ({
+          resume: {
+            fullName: parsed.fullName,
+            email: parsed.email,
+            phone: parsed.phone,
+            location: parsed.location,
+            linkedin: parsed.linkedin,
+            website: parsed.website,
+            summary: parsed.summary,
+            skills: parsed.skills,
+            experience: parsed.experience.map((e) => ({ ...e, id: uuid() })),
+            education: parsed.education.map((e) => ({ ...e, id: uuid() })),
+            projects: parsed.projects.map((p) => ({ ...p, id: uuid() })),
+          },
+        })),
       addExperience: () =>
         set((state) => ({
           resume: {
